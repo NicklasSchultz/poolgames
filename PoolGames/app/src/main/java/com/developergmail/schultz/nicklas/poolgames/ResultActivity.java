@@ -1,22 +1,150 @@
 package com.developergmail.schultz.nicklas.poolgames;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class ResultActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private LinearLayout playerNamesView;
+    private LinearLayout resultView;
+    private Button button;
+    private TextView player1;
+    private TextView player2;
+    private int turn;
+    private TextView player2score;
+    private TextView player1score;
+    private TextView playerTurn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+        setupNavigation();
+
+        playerNamesView = (LinearLayout) findViewById(R.id.playerNamesView);
+        resultView = (LinearLayout) findViewById(R.id.resultView);
+
+        button = (Button) findViewById(R.id.startPlay);
+        player1 = (TextView) findViewById(R.id.player1name);
+        player2 = (TextView) findViewById(R.id.player2name);
+        player1score = (TextView) findViewById(R.id.player1score);
+        player2score = (TextView) findViewById(R.id.player2score);
+
+        playerTurn = (TextView) findViewById(R.id.playerTurn);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startPlay();
+            }
+        });
+        ImageButton nextTurn = (ImageButton) findViewById(R.id.nextTurn);
+        nextTurn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeTurn();
+            }
+        });
+
+        ImageButton[] _button = new ImageButton[7];
+        _button[0] = (ImageButton) findViewById(R.id.Button01);
+        _button[1] = (ImageButton) findViewById(R.id.Button02);
+        _button[2] = (ImageButton) findViewById(R.id.Button03);
+        _button[3] = (ImageButton) findViewById(R.id.Button04);
+        _button[4] = (ImageButton) findViewById(R.id.Button05);
+        _button[5] = (ImageButton) findViewById(R.id.Button06);
+        _button[6] = (ImageButton) findViewById(R.id.Button07);
+
+        for (int j = 0; j < _button.length; j++){
+            _button[j].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    buttonClickListener(v);
+                }
+            });
+        }
+        resultView.setVisibility(View.INVISIBLE);
+    }
+    private void changeTurn() {
+        if(turn == 1) {
+            turn = 2;
+            playerTurn.setText(player2.getText() + "'s turn");
+        } else {
+            turn = 1;
+            playerTurn.setText(player1.getText() + "'s turn");
+        }
+    }
+
+    private void buttonClickListener(View v) {
+        int id = v.getId();
+        int points = 0;
+        switch (id) {
+            case R.id.Button01:
+                points = 1;
+                break;
+            case R.id.Button02:
+                points = 2;
+                break;
+            case R.id.Button03:
+                points = 3;
+                break;
+            case R.id.Button04:
+                points = 4;
+                break;
+            case R.id.Button05:
+                points = 5;
+                break;
+            case R.id.Button06:
+                points = 6;
+                break;
+            case R.id.Button07:
+                points = 7;
+                break;
+        }
+        addPoints(points);
+    }
+
+    private void addPoints(int points) {
+        int currentScore;
+        if(turn == 1) {
+            currentScore = Integer.parseInt(player1score.getText().toString());
+            currentScore += points;
+            player1score.setText(Integer.toString(currentScore));
+        } else {
+            currentScore = Integer.parseInt(player2score.getText().toString());
+            currentScore += points;
+            player2score.setText(Integer.toString(currentScore));
+        }
+    }
+    private void startPlay() {
+        turn = 1;
+        playerNamesView.setVisibility(View.INVISIBLE);
+        resultView.setVisibility(View.VISIBLE);
+        TextView p1 = (TextView) findViewById(R.id.p1);
+        TextView p2 = (TextView) findViewById(R.id.p2);
+        player1.setText(p1.getText());
+        player2.setText(p2.getText());
+        playerTurn.setText(player1.getText() + "'s turn");
+    }
+
+    private void setupNavigation() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

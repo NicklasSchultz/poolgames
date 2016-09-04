@@ -1,5 +1,6 @@
 package com.developergmail.schultz.nicklas.poolgames;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -68,7 +69,8 @@ public class DetailsActivity extends AppCompatActivity
     }
 
     private void showResults() {
-        // Go to results view
+        Intent intent = new Intent(this, ResultActivity.class);
+        this.startActivity(intent);
     }
 
     private void setupNav() {

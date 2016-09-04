@@ -61,7 +61,7 @@ public class ContentManager extends Application {
                 "Normal ball and rail foul rules apply in cribbage. This is a requirement present in most pool games that a player must contact an object ball with the cue ball and after that contact, either pocket an object ball, or some ball including the cue ball must contact a rail. When a foul results from scratching the cue ball into a pocket or jumping it off the table, the player has cue ball in hand from the kitchen. When a player has cue ball in hand from the kitchen and all object balls are also behind the head string in the kitchen, a player has the option of having the object ball nearest the head string relocated to the foot spot.\n\n",
                 "The first player to get 5 cribbages wins"
         ), R.drawable.rack_setup);
-        Game snooker = new Game("Cutthroat", new Rule(
+        Game cutthroat = new Game("Cutthroat", new Rule(
                 "Hejsna",
                 "Cutthroat (or Elimination or Screw your neighbour, as it is also known) is a game for three players in which each player tries to win by pocketing the balls of the other two players. The 15 balls are divided into three groups: one through five, six through ten, and 11 through 15. Players can either choose a group of balls before the game starts, or be assigned a group as each begins pocketing balls. If you scratch, one ball of both opponents is returned to the table, even if one of the opponents has had all his balls removed. Your turn continues as long as you pocket a ball. You can even pocket your own ball in order to be able to keep shooting",
                 "The final player with balls left wins"
@@ -78,11 +78,17 @@ public class ContentManager extends Application {
                 "Time out will be called for any player to refill his/her drink, however since you are a team your partner must also finish their drink so you can refill together.",
                 "Alla är vinnare"
         ), R.drawable.beer);
+        Game snooker = new Game("Snooker", new Rule(
+                "Hejsna",
+                "The balls are played in ascending order. Each turn the player must hit the lowest numbered ball first. If the player sinks any ball he may continue to play until he doesn't sink a ball or commits a faul",
+                "The person the sinks the 9 ball legally wins. "
+        ), R.drawable.snooker_reds);
 
         ArrayList<Game> listOfGames = new ArrayList<>();
         listOfGames.add(nineBall);
         listOfGames.add(eightBall);
         listOfGames.add(pool);
+        listOfGames.add(cutthroat);
         listOfGames.add(snooker);
         listOfGames.add(drinking);
 
