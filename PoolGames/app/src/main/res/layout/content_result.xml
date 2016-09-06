@@ -102,76 +102,7 @@
             android:text="Player 1 leading with 20points   50 points left"
             android:id="@+id/stats"
             android:layout_weight="0.06" />
-        <GridLayout
-            android:id="@+id/snookerResults"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="4"
-            android:paddingTop="50dp">
-            <ImageButton
-                android:id="@+id/Button01"
-                android:background="@null"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:cropToPadding="true"
-                android:paddingLeft="10dp"
-                android:src="@drawable/red_ball">
-                </ImageButton>
-            <ImageButton
-                android:background="@null"
-                android:id="@+id/Button02"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:cropToPadding="true"
-                android:paddingLeft="10dp"
-                android:src="@drawable/yellow_ball">
-            </ImageButton>
-            <ImageButton
-                android:background="@null"
-                android:id="@+id/Button03"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:cropToPadding="true"
-                android:paddingLeft="10dp"
-                android:src="@drawable/green_ball">
-            </ImageButton>
-            <ImageButton
-                android:background="@null"
-                android:id="@+id/Button04"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:cropToPadding="true"
-                android:paddingLeft="10dp"
-                android:src="@drawable/brown_ball">
-            </ImageButton>
-            <ImageButton
-                android:background="@null"
-                android:id="@+id/Button05"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:cropToPadding="true"
-                android:paddingLeft="10dp"
-                android:src="@drawable/blue_ball">
-            </ImageButton>
-            <ImageButton
-                android:background="@null"
-                android:id="@+id/Button06"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:cropToPadding="true"
-                android:paddingLeft="10dp"
-                android:src="@drawable/pink_ball">
-            </ImageButton>
-            <ImageButton
-                android:background="@null"
-                android:id="@+id/Button07"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:cropToPadding="true"
-                android:paddingLeft="10dp"
-                android:src="@drawable/black_ball">
-            </ImageButton>
-        </GridLayout>
+
         <ImageButton
             android:src="@drawable/next_turn"
             android:id="@+id/nextTurn"

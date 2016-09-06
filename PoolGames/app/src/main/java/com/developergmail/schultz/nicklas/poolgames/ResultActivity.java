@@ -5,11 +5,10 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +17,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.developergmail.schultz.nicklas.poolgames.games.IGame;
 
 public class ResultActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -32,22 +31,37 @@ public class ResultActivity extends AppCompatActivity
     private TextView player2score;
     private TextView player1score;
     private TextView playerTurn;
+    private IGame game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        setupNavigation();
 
+        setupNavigation();
+        Intent intent = getIntent();
+        String gameName = intent.getStringExtra(DetailsActivity.GAME);
+        ContentManager cm = (ContentManager) getApplicationContext();
+        game = cm.getGameByName(gameName);
+
+        int layoutId = game.getLayoutId();
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View inflatedLayout= inflater.inflate(layoutId, null, false);
+
+        // Inflate the layout the set listener
         playerNamesView = (LinearLayout) findViewById(R.id.playerNamesView);
         resultView = (LinearLayout) findViewById(R.id.resultView);
 
+        game.setView(resultView);
+
+        // Add the games layout to the view
+        resultView.addView(inflatedLayout);
         button = (Button) findViewById(R.id.startPlay);
         player1 = (TextView) findViewById(R.id.player1name);
         player2 = (TextView) findViewById(R.id.player2name);
         player1score = (TextView) findViewById(R.id.player1score);
         player2score = (TextView) findViewById(R.id.player2score);
-
         playerTurn = (TextView) findViewById(R.id.playerTurn);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +69,12 @@ public class ResultActivity extends AppCompatActivity
                 startPlay();
             }
         });
+        setupPlayerTurn();
+        resultView.setVisibility(View.INVISIBLE);
+        game.addEventListeners();
+    }
+
+    private void setupPlayerTurn() {
         ImageButton nextTurn = (ImageButton) findViewById(R.id.nextTurn);
         nextTurn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,25 +82,6 @@ public class ResultActivity extends AppCompatActivity
                 changeTurn();
             }
         });
-
-        ImageButton[] _button = new ImageButton[7];
-        _button[0] = (ImageButton) findViewById(R.id.Button01);
-        _button[1] = (ImageButton) findViewById(R.id.Button02);
-        _button[2] = (ImageButton) findViewById(R.id.Button03);
-        _button[3] = (ImageButton) findViewById(R.id.Button04);
-        _button[4] = (ImageButton) findViewById(R.id.Button05);
-        _button[5] = (ImageButton) findViewById(R.id.Button06);
-        _button[6] = (ImageButton) findViewById(R.id.Button07);
-
-        for (int j = 0; j < _button.length; j++){
-            _button[j].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    buttonClickListener(v);
-                }
-            });
-        }
-        resultView.setVisibility(View.INVISIBLE);
     }
     private void changeTurn() {
         if(turn == 1) {
@@ -90,49 +91,9 @@ public class ResultActivity extends AppCompatActivity
             turn = 1;
             playerTurn.setText(player1.getText() + "'s turn");
         }
+        game.setCurrentPlayer(turn);
     }
 
-    private void buttonClickListener(View v) {
-        int id = v.getId();
-        int points = 0;
-        switch (id) {
-            case R.id.Button01:
-                points = 1;
-                break;
-            case R.id.Button02:
-                points = 2;
-                break;
-            case R.id.Button03:
-                points = 3;
-                break;
-            case R.id.Button04:
-                points = 4;
-                break;
-            case R.id.Button05:
-                points = 5;
-                break;
-            case R.id.Button06:
-                points = 6;
-                break;
-            case R.id.Button07:
-                points = 7;
-                break;
-        }
-        addPoints(points);
-    }
-
-    private void addPoints(int points) {
-        int currentScore;
-        if(turn == 1) {
-            currentScore = Integer.parseInt(player1score.getText().toString());
-            currentScore += points;
-            player1score.setText(Integer.toString(currentScore));
-        } else {
-            currentScore = Integer.parseInt(player2score.getText().toString());
-            currentScore += points;
-            player2score.setText(Integer.toString(currentScore));
-        }
-    }
     private void startPlay() {
         turn = 1;
         playerNamesView.setVisibility(View.INVISIBLE);

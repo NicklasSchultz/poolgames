@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.developergmail.schultz.nicklas.poolgames.DetailsActivity;
 import com.developergmail.schultz.nicklas.poolgames.Game;
 import com.developergmail.schultz.nicklas.poolgames.R;
+import com.developergmail.schultz.nicklas.poolgames.games.IGame;
 
 import java.util.ArrayList;
 
@@ -21,12 +22,12 @@ import java.util.ArrayList;
  */
 public class GamesListAdapter extends BaseAdapter{
 
-    private ArrayList<Game> games;
+    private ArrayList<IGame> games;
     private Activity context;
     private static LayoutInflater inflater = null;
     public static final String GAME_SELECTED = "GAME_SELECTED";
 
-    public GamesListAdapter(Activity activity, ArrayList<Game> games) {
+    public GamesListAdapter(Activity activity, ArrayList<IGame> games) {
         this.games = games;
         this.context = activity;
 
@@ -58,7 +59,7 @@ public class GamesListAdapter extends BaseAdapter{
     public View getView(final int position, View convertView, ViewGroup parent) {
         Holder holder=new Holder();
         View rowView;
-        Game game = this.games.get(position);
+        IGame game = this.games.get(position);
         rowView = inflater.inflate(R.layout.image_text_layout, null);
         holder.textView =(TextView) rowView.findViewById(R.id.textView1);
         holder.imageView =(ImageView) rowView.findViewById(R.id.imageView1);
@@ -67,7 +68,7 @@ public class GamesListAdapter extends BaseAdapter{
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Game game = games.get(position);
+                IGame game = games.get(position);
                 Intent intent = new Intent(context, DetailsActivity.class);
                 intent.putExtra(GAME_SELECTED, game.getName());
                 context.startActivity(intent);

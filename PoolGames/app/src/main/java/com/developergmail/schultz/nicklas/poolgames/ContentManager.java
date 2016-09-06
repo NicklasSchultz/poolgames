@@ -2,6 +2,14 @@ package com.developergmail.schultz.nicklas.poolgames;
 
 import android.app.Application;
 
+import com.developergmail.schultz.nicklas.poolgames.games.Cribbage;
+import com.developergmail.schultz.nicklas.poolgames.games.Cutthroat;
+import com.developergmail.schultz.nicklas.poolgames.games.Drinking;
+import com.developergmail.schultz.nicklas.poolgames.games.EightBall;
+import com.developergmail.schultz.nicklas.poolgames.games.IGame;
+import com.developergmail.schultz.nicklas.poolgames.games.NineBall;
+import com.developergmail.schultz.nicklas.poolgames.games.Snooker;
+
 import java.util.ArrayList;
 
 /**
@@ -9,18 +17,18 @@ import java.util.ArrayList;
  */
 public class ContentManager extends Application {
 
-    private ArrayList<Game> games;
+    private ArrayList<IGame> games;
 
-    public ArrayList<Game> getGames() {
+    public ArrayList<IGame> getGames() {
         if (this.games == null) {
             fetchGames();
         }
         return this.games;
     }
 
-    public Game getGameByName(String name) {
-        Game returnValue = null;
-        for (Game g : games) {
+    public IGame getGameByName(String name) {
+        IGame returnValue = null;
+        for (IGame g : games) {
             if (g.getName().equals(name)) {
                 returnValue = g;
                 break;
@@ -30,17 +38,17 @@ public class ContentManager extends Application {
     }
 
     private void fetchGames() {
-        ArrayList<Game> games = getDummyGames();
+        ArrayList<IGame> games = getDummyGames();
         this.games = games;
     }
 
-    private ArrayList<Game> getDummyGames() {
-        Game nineBall = new Game("9-Ball", new Rule(
+    private ArrayList<IGame> getDummyGames() {
+        IGame nineBall = new NineBall("9-Ball", new Rule(
                 "Hejsna",
                 "The balls are played in ascending order. Each turn the player must hit the lowest numbered ball first. If the player sinks any ball he may continue to play until he doesn't sink a ball or commits a faul",
                 "The person the sinks the 9 ball legally wins. "
         ), R.drawable.nineball);
-        Game eightBall = new Game("8-Ball", new Rule(
+        IGame eightBall = new EightBall("8-Ball", new Rule(
                 "Hejsna",
                 "Break \n One person is chosen to shoot first, using the cue ball to break the object-ball rack apart. If the shooter who breaks fails to make a legal break, then the opponent can call for a re-rack and become the breaker, or elect to play from the current position of the balls.\n\n" +
                 "Turns\n A player (or team) will continue to shoot until committing a foul, or failing to legally pocket an object ball on a non-foul shot (whether intentionally or not). Thereupon it is the turn of the opposing player(s). Play alternates in this manner for the remainder of the game. Following a foul, the incoming player has ball-in-hand anywhere on the table, unless the foul occurred on the break shot, as noted previously.[6]\n\n" +
@@ -52,7 +60,7 @@ public class ContentManager extends Application {
                 "The opposing player knocks the 8 ball off the table.\n\n" +
                 "The opposing player commits any foul, including scratching the cue ball into a pocket, or knocking it off the table, in the course of a shot that pockets the 8 ball. (As noted above, a scratch or other foul while shooting for the 8 ball is not a loss of the game if the 8 is not pocketed or jumped from the table.)"
         ), R.drawable.rack_setup);
-        Game pool = new Game("Cribbage", new Rule(
+        IGame pool = new Cribbage("Cribbage", new Rule(
                 "Hejsna",
                 "A cribbage only counts when the paired balls are pocketed in succession in the same inning.\n\n" +
                 "Where a player pockets a first paired ball and is thus on a cribbage, if the companion ball is not pocketed on the next stroke, the shot is a foul and the unpaired balls of any cribbages not completed are spotted to the foot spot. If the foot spot is occupied, balls are spotted as close as possible to the foot spot on the long string stretching back from the foot spot to the foot rail\n\n" +
@@ -61,12 +69,12 @@ public class ContentManager extends Application {
                 "Normal ball and rail foul rules apply in cribbage. This is a requirement present in most pool games that a player must contact an object ball with the cue ball and after that contact, either pocket an object ball, or some ball including the cue ball must contact a rail. When a foul results from scratching the cue ball into a pocket or jumping it off the table, the player has cue ball in hand from the kitchen. When a player has cue ball in hand from the kitchen and all object balls are also behind the head string in the kitchen, a player has the option of having the object ball nearest the head string relocated to the foot spot.\n\n",
                 "The first player to get 5 cribbages wins"
         ), R.drawable.rack_setup);
-        Game cutthroat = new Game("Cutthroat", new Rule(
+        IGame cutthroat = new Cutthroat("Cutthroat", new Rule(
                 "Hejsna",
                 "Cutthroat (or Elimination or Screw your neighbour, as it is also known) is a game for three players in which each player tries to win by pocketing the balls of the other two players. The 15 balls are divided into three groups: one through five, six through ten, and 11 through 15. Players can either choose a group of balls before the game starts, or be assigned a group as each begins pocketing balls. If you scratch, one ball of both opponents is returned to the table, even if one of the opponents has had all his balls removed. Your turn continues as long as you pocket a ball. You can even pocket your own ball in order to be able to keep shooting",
                 "The final player with balls left wins"
         ), R.drawable.rack_setup);
-        Game drinking = new Game("Drinking", new Rule(
+        IGame drinking = new Drinking("Drinking", new Rule(
                 "Hejsna",
                 "Play a regular game of pool as you normally would with your friends. Each player must have their own drink. Just add these rules for drinking depending on what happens:\n" +
                 "Teams chug for break. The team of the first person to finish gets to break.\n" +
@@ -78,13 +86,13 @@ public class ContentManager extends Application {
                 "Time out will be called for any player to refill his/her drink, however since you are a team your partner must also finish their drink so you can refill together.",
                 "Alla är vinnare"
         ), R.drawable.beer);
-        Game snooker = new Game("Snooker", new Rule(
+        IGame snooker = new Snooker("Snooker", new Rule(
                 "Hejsna",
                 "The balls are played in ascending order. Each turn the player must hit the lowest numbered ball first. If the player sinks any ball he may continue to play until he doesn't sink a ball or commits a faul",
                 "The person the sinks the 9 ball legally wins. "
         ), R.drawable.snooker_reds);
 
-        ArrayList<Game> listOfGames = new ArrayList<>();
+        ArrayList<IGame> listOfGames = new ArrayList<>();
         listOfGames.add(nineBall);
         listOfGames.add(eightBall);
         listOfGames.add(pool);

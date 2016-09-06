@@ -16,6 +16,7 @@ import android.widget.ExpandableListView;
 
 import com.developergmail.schultz.nicklas.poolgames.Adapters.ExpandableListAdapter;
 import com.developergmail.schultz.nicklas.poolgames.Adapters.GamesListAdapter;
+import com.developergmail.schultz.nicklas.poolgames.games.IGame;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,12 +25,13 @@ import java.util.List;
 public class DetailsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final String GAME = "GAME";
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     View buttonsView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
-    private Game game;
+    private IGame game;
     Button showRulesButton;
     Button showResultsButton;
 
@@ -70,6 +72,7 @@ public class DetailsActivity extends AppCompatActivity
 
     private void showResults() {
         Intent intent = new Intent(this, ResultActivity.class);
+        intent.putExtra(GAME, game.getName());
         this.startActivity(intent);
     }
 

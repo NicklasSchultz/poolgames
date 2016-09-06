@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.developergmail.schultz.nicklas.poolgames.Adapters.GamesListAdapter;
+import com.developergmail.schultz.nicklas.poolgames.games.IGame;
 
 import org.w3c.dom.Text;
 
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         ListView listView = (ListView) findViewById(R.id.list);
         ContentManager contentManager = (ContentManager) getApplicationContext();
-        ArrayList<Game> games = contentManager.getGames();
+        ArrayList<IGame> games = contentManager.getGames();
         listView.setAdapter(new GamesListAdapter(this, games));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
