@@ -25,7 +25,7 @@ import com.developergmail.schultz.nicklas.poolgames.games.IGame;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailsActivity extends AppCompatActivity
+public class LauncherActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String GAME = "GAME";

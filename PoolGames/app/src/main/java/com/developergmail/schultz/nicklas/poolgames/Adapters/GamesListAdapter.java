@@ -10,7 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.developergmail.schultz.nicklas.poolgames.DetailsActivity;
+import com.developergmail.schultz.nicklas.poolgames.LauncherActivity;
 import com.developergmail.schultz.nicklas.poolgames.R;
 import com.developergmail.schultz.nicklas.poolgames.games.IGame;
 
@@ -68,7 +68,7 @@ public class GamesListAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
                 IGame game = games.get(position);
-                Intent intent = new Intent(context, DetailsActivity.class);
+                Intent intent = new Intent(context, LauncherActivity.class);
                 intent.putExtra(GAME_SELECTED, game.getName());
                 context.startActivity(intent);
             }

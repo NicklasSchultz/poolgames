@@ -18,13 +18,10 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.developergmail.schultz.nicklas.poolgames.games.IGame;
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ResultActivity extends AppCompatActivity
@@ -48,7 +45,7 @@ public class ResultActivity extends AppCompatActivity
 
         setupNavigation();
         Intent intent = getIntent();
-        String gameName = intent.getStringExtra(DetailsActivity.GAME);
+        String gameName = intent.getStringExtra(LauncherActivity.GAME);
         contentManager = (ContentManager) getApplicationContext();
         game = contentManager.getGameByName(gameName);
 
