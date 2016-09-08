@@ -65,8 +65,13 @@ public class Snooker extends IGame {
     }
 
     @Override
-    public int getImage() {
+    public int getIcon() {
         return image;
+    }
+
+    @Override
+    public int getRack() {
+        return R.drawable.rack_setup;
     }
 
     @Override

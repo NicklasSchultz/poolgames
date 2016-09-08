@@ -17,7 +17,9 @@ public abstract class IGame {
 
     abstract public String getName();
 
-    abstract public int getImage();
+    abstract public int getIcon();
+
+    abstract public int getRack();
 
     abstract public Rule getRules();
 

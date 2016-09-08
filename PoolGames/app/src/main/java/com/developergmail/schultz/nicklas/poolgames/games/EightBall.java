@@ -2,6 +2,7 @@ package com.developergmail.schultz.nicklas.poolgames.games;
 
 import android.view.View;
 
+import com.developergmail.schultz.nicklas.poolgames.R;
 import com.developergmail.schultz.nicklas.poolgames.Rule;
 
 /**
@@ -39,7 +40,7 @@ public class EightBall extends IGame {
     }
 
     @Override
-    public int getImage() {
+    public int getIcon() {
         return image;
     }
 
@@ -56,5 +57,10 @@ public class EightBall extends IGame {
     @Override
     public void setCurrentPlayer(int i) {
 
+    }
+
+    @Override
+    public int getRack() {
+        return R.drawable.normal_rack;
     }
 }

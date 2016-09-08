@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.developergmail.schultz.nicklas.poolgames.DetailsActivity;
-import com.developergmail.schultz.nicklas.poolgames.Game;
 import com.developergmail.schultz.nicklas.poolgames.R;
 import com.developergmail.schultz.nicklas.poolgames.games.IGame;
 
@@ -64,7 +63,7 @@ public class GamesListAdapter extends BaseAdapter{
         holder.textView =(TextView) rowView.findViewById(R.id.textView1);
         holder.imageView =(ImageView) rowView.findViewById(R.id.imageView1);
         holder.textView.setText(game.getName());
-        holder.imageView.setImageResource(game.getImage());
+        holder.imageView.setImageResource(game.getIcon());
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

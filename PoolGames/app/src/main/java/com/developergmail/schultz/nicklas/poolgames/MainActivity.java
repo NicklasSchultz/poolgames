@@ -16,8 +16,6 @@ import android.widget.TextView;
 import com.developergmail.schultz.nicklas.poolgames.Adapters.GamesListAdapter;
 import com.developergmail.schultz.nicklas.poolgames.games.IGame;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -31,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         ListView listView = (ListView) findViewById(R.id.list);
         ContentManager contentManager = (ContentManager) getApplicationContext();
+        PreferencesManager.initializeInstance(this);
+
         ArrayList<IGame> games = contentManager.getGames();
         listView.setAdapter(new GamesListAdapter(this, games));
 

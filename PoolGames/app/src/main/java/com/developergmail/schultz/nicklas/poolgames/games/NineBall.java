@@ -2,6 +2,7 @@ package com.developergmail.schultz.nicklas.poolgames.games;
 
 import android.view.View;
 
+import com.developergmail.schultz.nicklas.poolgames.R;
 import com.developergmail.schultz.nicklas.poolgames.Rule;
 
 /**
@@ -24,7 +25,7 @@ public class NineBall extends IGame{
 
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.standard_result_view;
     }
 
     @Override
@@ -38,7 +39,7 @@ public class NineBall extends IGame{
     }
 
     @Override
-    public int getImage() {
+    public int getIcon() {
         return image;
     }
 
@@ -55,5 +56,10 @@ public class NineBall extends IGame{
     @Override
     public void setCurrentPlayer(int i) {
 
+    }
+
+    @Override
+    public int getRack() {
+        return R.drawable.nineball_rack;
     }
 }

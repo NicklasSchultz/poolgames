@@ -8,32 +8,31 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ExpandableListView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
-import com.developergmail.schultz.nicklas.poolgames.Adapters.ExpandableListAdapter;
 import com.developergmail.schultz.nicklas.poolgames.Adapters.GamesListAdapter;
 import com.developergmail.schultz.nicklas.poolgames.games.IGame;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class DetailsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String GAME = "GAME";
-    ExpandableListAdapter listAdapter;
-    ExpandableListView expListView;
-    View buttonsView;
-    List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
+    private View buttonsView;
     private IGame game;
-    Button showRulesButton;
-    Button showResultsButton;
+    private Button showRulesButton;
+    private Button showResultsButton;
 
 
     @Override
@@ -47,19 +46,15 @@ public class DetailsActivity extends AppCompatActivity
         setTitle(game.getName());
         setupNav();
 
-        expListView = (ExpandableListView) findViewById(R.id.lvExp);
         buttonsView = findViewById(R.id.buttonsLayout);
         showRulesButton = (Button) findViewById(R.id.rules);
         showResultsButton = (Button) findViewById(R.id.gameon);
         buttonsView.setVisibility(View.VISIBLE);
-        prepareListData();
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-        expListView.setAdapter(listAdapter);
 
         showRulesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switchView();
+                showRules();
             }
         });
         showResultsButton.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +71,12 @@ public class DetailsActivity extends AppCompatActivity
         this.startActivity(intent);
     }
 
+    private void showRules() {
+        Intent intent = new Intent(this, GameDetailsActivity.class);
+        intent.putExtra(GAME, game.getName());
+        this.startActivity(intent);
+    }
+
     private void setupNav() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -88,16 +89,6 @@ public class DetailsActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    private void switchView() {
-        if(buttonsView.getVisibility() == View.VISIBLE) {
-            expListView.setVisibility(View.VISIBLE);
-            buttonsView.setVisibility(View.GONE);
-        } else {
-            expListView.setVisibility(View.INVISIBLE);
-            buttonsView.setVisibility(View.VISIBLE);
-        }
     }
 
     @Override
@@ -157,32 +148,4 @@ public class DetailsActivity extends AppCompatActivity
         return true;
     }
 
-    /*
-     * Preparing the list data
-     */
-    private void prepareListData() {
-        // setting list adapter
-
-        listDataHeader = new ArrayList<>();
-        listDataChild = new HashMap<>();
-
-        // Adding child data
-        listDataHeader.add("Game Setup");
-        listDataHeader.add("Gameplay");
-        listDataHeader.add("Winning");
-
-        // Adding child data
-        List<String> gameSetup = new ArrayList<>();
-        gameSetup.add(game.getRules().getGameSetup());
-
-        List<String> nowShowing = new ArrayList<>();
-        nowShowing.add(game.getRules().getGamePlay());
-
-        List<String> comingSoon = new ArrayList<>();
-        comingSoon.add(game.getRules().getWinning());
-
-        listDataChild.put(listDataHeader.get(0), gameSetup); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), nowShowing);
-        listDataChild.put(listDataHeader.get(2), comingSoon);
-    }
 }

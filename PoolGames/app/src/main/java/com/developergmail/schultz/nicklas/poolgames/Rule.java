@@ -1,5 +1,7 @@
 package com.developergmail.schultz.nicklas.poolgames;
 
+import android.text.SpannableString;
+
 /**
  * Created by nicklasschultz on 01/09/16.
  */

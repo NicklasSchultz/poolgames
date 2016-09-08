@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,22 +17,29 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.developergmail.schultz.nicklas.poolgames.games.IGame;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ResultActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final String STORED_PLAYER = "STORED_PLAYER";
     private LinearLayout playerNamesView;
     private LinearLayout resultView;
     private Button button;
     private TextView player1;
     private TextView player2;
     private int turn;
-    private TextView player2score;
-    private TextView player1score;
     private TextView playerTurn;
     private IGame game;
+    private ContentManager contentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +49,18 @@ public class ResultActivity extends AppCompatActivity
         setupNavigation();
         Intent intent = getIntent();
         String gameName = intent.getStringExtra(DetailsActivity.GAME);
-        ContentManager cm = (ContentManager) getApplicationContext();
-        game = cm.getGameByName(gameName);
+        contentManager = (ContentManager) getApplicationContext();
+        game = contentManager.getGameByName(gameName);
 
         int layoutId = game.getLayoutId();
-
         LayoutInflater inflater = LayoutInflater.from(this);
-        View inflatedLayout= inflater.inflate(layoutId, null, false);
+        View inflatedLayout;
 
+        try {
+            inflatedLayout = inflater.inflate(layoutId, null, false);
+        } catch (Exception ex){
+            inflatedLayout = inflater.inflate(R.layout.standard_result_view, null, false);
+        }
         // Inflate the layout the set listener
         playerNamesView = (LinearLayout) findViewById(R.id.playerNamesView);
         resultView = (LinearLayout) findViewById(R.id.resultView);
@@ -60,8 +72,23 @@ public class ResultActivity extends AppCompatActivity
         button = (Button) findViewById(R.id.startPlay);
         player1 = (TextView) findViewById(R.id.player1name);
         player2 = (TextView) findViewById(R.id.player2name);
-        player1score = (TextView) findViewById(R.id.player1score);
-        player2score = (TextView) findViewById(R.id.player2score);
+
+        TextView setP1 = (TextView) findViewById(R.id.p1);
+        TextView setP2 = (TextView) findViewById(R.id.p2);
+        PreferencesManager prfManager = PreferencesManager.getInstance();
+        JsonObject storedPlayer = prfManager.getValue(PreferencesManager.PLAYERS);
+        try {
+            JsonElement p1Name = storedPlayer.get("player");
+            JsonElement p2Name = storedPlayer.get("player2");
+            if(p1Name != null) {
+                setP1.setText(p1Name.toString().replaceAll("\"", ""));
+            }
+            if(p2Name != null) {
+                setP2.setText(p2Name.toString().replaceAll("\"", ""));
+            }
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        }
         playerTurn = (TextView) findViewById(R.id.playerTurn);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +110,7 @@ public class ResultActivity extends AppCompatActivity
             }
         });
     }
+
     private void changeTurn() {
         if(turn == 1) {
             turn = 2;
@@ -96,13 +124,24 @@ public class ResultActivity extends AppCompatActivity
 
     private void startPlay() {
         turn = 1;
-        playerNamesView.setVisibility(View.INVISIBLE);
-        resultView.setVisibility(View.VISIBLE);
         TextView p1 = (TextView) findViewById(R.id.p1);
         TextView p2 = (TextView) findViewById(R.id.p2);
         player1.setText(p1.getText());
         player2.setText(p2.getText());
         playerTurn.setText(player1.getText() + "'s turn");
+
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("player", p1.getText());
+            obj.put("player2", p2.getText());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String jsons = obj.toString();
+        Log.d("Nicklas",jsons);
+        PreferencesManager.getInstance().setValue(PreferencesManager.PLAYERS, jsons);
+        playerNamesView.setVisibility(View.INVISIBLE);
+        resultView.setVisibility(View.VISIBLE);
     }
 
     private void setupNavigation() {

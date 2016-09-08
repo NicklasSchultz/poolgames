@@ -2,6 +2,7 @@ package com.developergmail.schultz.nicklas.poolgames.games;
 
 import android.view.View;
 
+import com.developergmail.schultz.nicklas.poolgames.R;
 import com.developergmail.schultz.nicklas.poolgames.Rule;
 
 /**
@@ -10,12 +11,12 @@ import com.developergmail.schultz.nicklas.poolgames.Rule;
 public class Cribbage extends IGame {
     private String name;
     private Rule rules;
-    private int image;
+    private int icon;
 
-    public Cribbage(String name, Rule rules, int image) {
+    public Cribbage(String name, Rule rules, int icon) {
         this.name = name;
         this.rules = rules;
-        this.image = image;
+        this.icon = icon;
     }
     @Override
     void addPoints(int points) {
@@ -24,7 +25,7 @@ public class Cribbage extends IGame {
 
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.standard_result_view;
     }
 
     @Override
@@ -37,8 +38,8 @@ public class Cribbage extends IGame {
     }
 
     @Override
-    public int getImage() {
-        return image;
+    public int getIcon() {
+        return icon;
     }
 
     @Override
@@ -53,5 +54,9 @@ public class Cribbage extends IGame {
     @Override
     public void setCurrentPlayer(int i) {
 
+    }
+    @Override
+    public int getRack() {
+        return R.drawable.cribbage_rack;
     }
 }
