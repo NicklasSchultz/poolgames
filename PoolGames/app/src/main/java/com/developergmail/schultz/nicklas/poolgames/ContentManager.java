@@ -52,7 +52,7 @@ public class ContentManager extends Application {
         String[] rackContent = new String[1];
         String[] winning = new String[1];
         String[] winningContent = new String[1];
-        rackTitles[0] = "The rack";
+        rackTitles[0] = "The rack\n\n";
         rackContent[0] = "Place the balls in a diamond formation. The first ball facing the player needs to be the number 1 ball. In the middle of the diamond formation the number 9 ball should be";
         playContent[0] = "One person is chosen to shoot first, by breaking the rack. The base of the cue ball must be behind the head string for the break shot. " +
                 "If the player who breaks fails to make a legal break, the opponent can either demand a re-rack and become the breaker, or continue to play as if " +

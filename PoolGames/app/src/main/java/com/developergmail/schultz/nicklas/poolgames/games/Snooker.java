@@ -1,6 +1,7 @@
 package com.developergmail.schultz.nicklas.poolgames.games;
 
 import android.view.View;
+import android.view.animation.Interpolator;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -19,7 +20,12 @@ public class Snooker extends IGame {
     private View view;
     private TextView player1score;
     private TextView player2score;
+    private TextView playerStats;
     private int turn;
+    private int redsPotted = 0;
+    private int totalReds = 15;
+    private TextView player1name;
+    private TextView player2name;
 
     public Snooker(String name, Rule rules, int image) {
         this.name = name;
@@ -36,6 +42,9 @@ public class Snooker extends IGame {
         this.view = view;
         player1score = (TextView) view.findViewById(R.id.player1score);
         player2score = (TextView) view.findViewById(R.id.player2score);
+        player1name = (TextView) view.findViewById(R.id.player1name);
+        player2name = (TextView) view.findViewById(R.id.player2name);
+        playerStats = (TextView) view.findViewById(R.id.stats);
     }
 
     @Override
@@ -71,7 +80,7 @@ public class Snooker extends IGame {
 
     @Override
     public int getRack() {
-        return R.drawable.rack_setup;
+        return R.drawable.snooker_reds;
     }
 
     @Override
@@ -81,6 +90,9 @@ public class Snooker extends IGame {
 
     @Override
     public void addPoints(int points) {
+        if(points == 1) {
+            redsPotted++;
+        }
         int currentScore;
         if(turn == 1) {
             currentScore = Integer.parseInt(player1score.getText().toString());
@@ -91,6 +103,27 @@ public class Snooker extends IGame {
             currentScore += points;
             player2score.setText(Integer.toString(currentScore));
         }
+        int p1Score = Integer.parseInt(player1score.getText().toString());
+        int p2Score = Integer.parseInt(player2score.getText().toString());
+        int ahead = 0;
+        int left;
+        String s;
+        left = getPointsLeft();
+        if(points == 1) {
+            left += 7;
+        }
+        if(p1Score > p2Score) {
+            ahead = p1Score - p2Score;
+            s = player1name.getText().toString() + " is ahead with " + ahead + ", points left " + left;
+        } else {
+            ahead = p2Score - p1Score;
+            s = player2name.getText().toString() + " is ahead with " + ahead + ", points left " + left;
+        }
+        playerStats.setText(s);
+    }
+
+    private int getPointsLeft() {
+        return ((totalReds - redsPotted) * 8) + 27;
     }
 
     @Override

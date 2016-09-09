@@ -111,7 +111,7 @@
             android:textColor="@color/colorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Player 1 leading with 20points   50 points left"
+            android:text="0"
             android:id="@+id/stats"
             android:layout_weight="0.06" />
 
