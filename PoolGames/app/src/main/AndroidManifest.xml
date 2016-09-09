@@ -42,7 +42,7 @@
             android:label="@string/title_activity_result"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".GameDetailsActivity"
+            android:name=".RulesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

@@ -8,22 +8,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.SpannableString;
-import android.text.style.RelativeSizeSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.developergmail.schultz.nicklas.poolgames.Adapters.GamesListAdapter;
 import com.developergmail.schultz.nicklas.poolgames.games.IGame;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class LauncherActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,7 +29,7 @@ public class LauncherActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        setContentView(R.layout.activity_launcher);
 
         String gameName = getIntent().getStringExtra(GamesListAdapter.GAME_SELECTED);
         ContentManager contentManager = (ContentManager) getApplicationContext();
@@ -72,7 +63,7 @@ public class LauncherActivity extends AppCompatActivity
     }
 
     private void showRules() {
-        Intent intent = new Intent(this, GameDetailsActivity.class);
+        Intent intent = new Intent(this, RulesActivity.class);
         intent.putExtra(GAME, game.getName());
         this.startActivity(intent);
     }

@@ -30,10 +30,7 @@ public class RulesMainFragment extends Fragment {
         ImageView imgView = (ImageView) rootView.findViewById(R.id.rack_image);
         imgView.setImageResource(game.getRack());
         TextView txt = (TextView) rootView.findViewById(R.id.rack_text);
-        SpannableString styledString = new SpannableString("Game setup");
-        styledString.setSpan(new RelativeSizeSpan(1.5f), 0 ,"Game setup".length(), 0);
-        txt.append(styledString);
-        txt.append("\n\n" + game.getRules().getGameSetup());
+        txt.append(game.getRules().getGameSetup());
 
         return rootView;
     }

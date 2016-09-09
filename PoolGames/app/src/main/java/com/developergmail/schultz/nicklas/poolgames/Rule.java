@@ -1,31 +1,34 @@
 package com.developergmail.schultz.nicklas.poolgames;
 
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 
 /**
  * Created by nicklasschultz on 01/09/16.
  */
 public class Rule {
 
-    private String gameSetup;
-    private String gamePlay;
-    private String winning;
+    private SpannableStringBuilder gameSetup;
+    private SpannableStringBuilder gamePlay;
+    private SpannableStringBuilder winning;
+    private SpannableStringBuilder g;
 
-    public Rule(String gameSetup, String gamePlay, String winning) {
+    public Rule(SpannableStringBuilder gameSetup, SpannableStringBuilder gamePlay, SpannableStringBuilder winning) {
         this.gameSetup = gameSetup;
         this.gamePlay = gamePlay;
         this.winning = winning;
     }
 
-    public String getGamePlay() {
+
+    public SpannableStringBuilder getGamePlay() {
         return gamePlay;
     }
 
-    public String getWinning() {
+    public SpannableStringBuilder getWinning() {
         return winning;
     }
 
-    public String getGameSetup() {
+    public SpannableStringBuilder getGameSetup() {
         return gameSetup;
     }
 }

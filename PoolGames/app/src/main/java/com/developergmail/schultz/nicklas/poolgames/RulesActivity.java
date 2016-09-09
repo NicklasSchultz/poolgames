@@ -10,7 +10,7 @@ import android.support.v4.view.ViewPager;
 import com.developergmail.schultz.nicklas.poolgames.Adapters.AppSectionsPagerAdapter;
 import com.developergmail.schultz.nicklas.poolgames.games.IGame;
 
-public class GameDetailsActivity extends FragmentActivity implements ActionBar.TabListener {
+public class RulesActivity extends FragmentActivity implements ActionBar.TabListener {
 
     AppSectionsPagerAdapter mAppSectionsPagerAdapter;
     ViewPager mViewPager;
@@ -18,7 +18,7 @@ public class GameDetailsActivity extends FragmentActivity implements ActionBar.T
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_details);
+        setContentView(R.layout.activity_rules);
 
         Intent intent = getIntent();
         String gameName = intent.getStringExtra(LauncherActivity.GAME);

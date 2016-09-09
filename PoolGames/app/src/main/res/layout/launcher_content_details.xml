@@ -9,7 +9,7 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".LauncherActivity"
-    tools:showIn="@layout/detail_nav_bar_detail">
+    tools:showIn="@layout/launcher_nav_bar_detail">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

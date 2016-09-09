@@ -33,13 +33,12 @@ public class RulesFragment extends Fragment {
         if(section == 2) {
             rootView = inflater.inflate(R.layout.fragment_image_object, container, false);
             TextView txt = (TextView) rootView.findViewById(R.id.rack_text);
-            txt.append(StringHelper.getLargeText("Game Play"));
-            txt.append("\n\n" + game.getRules().getGamePlay() + "\n\n");
+            //txt.append(StringHelper.getLargeText("Game Play"));
+            txt.setText(game.getRules().getGamePlay());
         } else {
             rootView = inflater.inflate(R.layout.fragment_image_object, container, false);
             TextView txt = (TextView) rootView.findViewById(R.id.rack_text);
-            txt.append(StringHelper.getLargeText("Winning"));
-            txt.append("\n\n" + new SpannableString(game.getRules().getWinning()));
+            txt.setText(game.getRules().getWinning());
         }
 
         return rootView;

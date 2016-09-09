@@ -1,10 +1,13 @@
 package com.developergmail.schultz.nicklas.poolgames.helpers;
 
 import android.content.Context;
+import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -18,6 +21,24 @@ public class StringHelper {
         SpannableString styledString = new SpannableString(s);
         styledString.setSpan(new RelativeSizeSpan(1.5f), 0 ,s.length(), 0);
         return styledString;
+    }
+
+    public static SpannableStringBuilder getSpannableString(String title, String[] subTitles, String[] subContent) {
+        SpannableStringBuilder longDescription = new SpannableStringBuilder();
+        longDescription.append(title);
+        int start = longDescription.length();
+        longDescription.setSpan(new RelativeSizeSpan(1.5f), 0, start, 0);
+
+        int startTag = start;
+        int endTag;
+        for (int i = 0; i < subContent.length; i++) {
+            longDescription.append(subTitles[i]);
+            endTag = longDescription.length();
+            longDescription.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), startTag, endTag, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            longDescription.append(subContent[i]);
+            startTag = longDescription.length();
+        }
+        return longDescription;
     }
 
     public static SpannableString getToastText(String s, Context c) {
