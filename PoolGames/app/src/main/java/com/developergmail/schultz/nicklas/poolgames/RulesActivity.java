@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.developergmail.schultz.nicklas.poolgames.Adapters.AppSectionsPagerAdapter;
 import com.developergmail.schultz.nicklas.poolgames.games.IGame;
@@ -40,6 +42,32 @@ public class RulesActivity extends FragmentActivity implements ActionBar.TabList
             }
         });
     }
+    private int dotsCount=3;    //No of tabs or images
+    private ImageView[] dots;
+    LinearLayout linearLayout;
+
+    private void drawPageSelectionIndicators(int mPosition){
+        if(linearLayout!=null) {
+            linearLayout.removeAllViews();
+        }
+        linearLayout=(LinearLayout)findViewById(R.id.viewPagerCountDots);
+        dots = new ImageView[dotsCount];
+        for (int i = 0; i < dotsCount; i++) {
+            dots[i] = new ImageView(this);
+            if(i==mPosition)
+                dots[i].setImageDrawable(getResources().getDrawable(R.drawable.item_selected));
+            else
+                dots[i].setImageDrawable(getResources().getDrawable(R.drawable.item_unselected));
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+
+            params.setMargins(4, 0, 4, 0);
+            linearLayout.addView(dots[i], params);
+        }
+    }
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
@@ -49,6 +77,7 @@ public class RulesActivity extends FragmentActivity implements ActionBar.TabList
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         // When the given tab is selected, switch to the corresponding page in the ViewPager.
         mViewPager.setCurrentItem(tab.getPosition());
+        drawPageSelectionIndicators(tab.getPosition());
     }
 
     @Override
