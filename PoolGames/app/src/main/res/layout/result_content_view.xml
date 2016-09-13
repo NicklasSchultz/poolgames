@@ -66,20 +66,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="20dp">
+            android:orientation="horizontal">
         <TextView
             android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Player 1's:"
+            android:textSize="30dp"
             android:textColor="@color/colorText"
             android:id="@+id/player1name"
             android:layout_weight="0.06" />
             <TextView
                 android:textColor="@color/colorText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="0"
                 android:id="@+id/player1score"
@@ -88,12 +88,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="20dp">
+            android:orientation="horizontal">
             <TextView
                 android:textColor="@color/colorText"
                 android:layout_width="50dp"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
+                android:textSize="20dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Player 2's:"
                 android:id="@+id/player2name"
@@ -101,7 +101,7 @@
             <TextView
                 android:textColor="@color/colorText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="0"
                 android:id="@+id/player2score"
@@ -114,12 +114,11 @@
             android:text="0"
             android:id="@+id/stats"
             android:layout_weight="0.06" />
-
-
     </LinearLayout>
     <ImageButton
         android:src="@drawable/next_turn"
         android:id="@+id/nextTurn"
+        android:visibility="invisible"
         android:layout_width="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"

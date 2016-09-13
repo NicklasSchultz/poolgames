@@ -2,6 +2,7 @@ package com.developergmail.schultz.nicklas.poolgames.games;
 
 import android.view.View;
 import android.view.animation.Interpolator;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import com.developergmail.schultz.nicklas.poolgames.Rule;
 public class Snooker extends IGame {
 
     private static int LAYOUT_ID = R.layout.snooker_results;
+    private static int FOUL_POINTS = -4;
     private final String name;
     private final Rule rules;
     private final int image;
@@ -26,6 +28,7 @@ public class Snooker extends IGame {
     private int totalReds = 15;
     private TextView player1name;
     private TextView player2name;
+    private Button foulShot;
 
     public Snooker(String name, Rule rules, int image) {
         this.name = name;
@@ -45,6 +48,7 @@ public class Snooker extends IGame {
         player1name = (TextView) view.findViewById(R.id.player1name);
         player2name = (TextView) view.findViewById(R.id.player2name);
         playerStats = (TextView) view.findViewById(R.id.stats);
+
     }
 
     @Override
@@ -66,6 +70,14 @@ public class Snooker extends IGame {
                 }
             });
         }
+
+        foulShot = (Button) view.findViewById(R.id.foulButton);
+        foulShot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonClickListener(v);
+            }
+        });
     }
 
     @Override
@@ -93,19 +105,32 @@ public class Snooker extends IGame {
         if(points == 1) {
             redsPotted++;
         }
+
         int currentScore;
-        if(turn == 1) {
-            currentScore = Integer.parseInt(player1score.getText().toString());
-            currentScore += points;
-            player1score.setText(Integer.toString(currentScore));
+        if(points == FOUL_POINTS) {
+            if (turn == 1) {
+                currentScore = Integer.parseInt(player2score.getText().toString());
+                currentScore += 4;
+                player2score.setText(Integer.toString(currentScore));
+            } else {
+                currentScore = Integer.parseInt(player1score.getText().toString());
+                currentScore += 4;
+                player1score.setText(Integer.toString(currentScore));
+            }
         } else {
-            currentScore = Integer.parseInt(player2score.getText().toString());
-            currentScore += points;
-            player2score.setText(Integer.toString(currentScore));
+            if (turn == 1) {
+                currentScore = Integer.parseInt(player1score.getText().toString());
+                currentScore += points;
+                player1score.setText(Integer.toString(currentScore));
+            } else {
+                currentScore = Integer.parseInt(player2score.getText().toString());
+                currentScore += points;
+                player2score.setText(Integer.toString(currentScore));
+            }
         }
         int p1Score = Integer.parseInt(player1score.getText().toString());
         int p2Score = Integer.parseInt(player2score.getText().toString());
-        int ahead = 0;
+        int ahead;
         int left;
         String s;
         left = getPointsLeft();
@@ -127,7 +152,7 @@ public class Snooker extends IGame {
     }
 
     @Override
-    public void setCurrentPlayer(int i){
+    public void setCurrentPlayer(int i) {
         turn = i;
     }
 
@@ -155,6 +180,9 @@ public class Snooker extends IGame {
                 break;
             case R.id.Button07:
                 points = 7;
+                break;
+            case R.id.foulButton:
+                points = FOUL_POINTS;
                 break;
         }
         addPoints(points);

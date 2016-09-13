@@ -37,6 +37,7 @@ public class ResultActivity extends AppCompatActivity
     private TextView playerTurn;
     private IGame game;
     private ContentManager contentManager;
+    private Button foulShot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,9 +113,13 @@ public class ResultActivity extends AppCompatActivity
         if(turn == 1) {
             turn = 2;
             playerTurn.setText(player2.getText() + "'s turn");
+            player2.setTextSize(30);
+            player1.setTextSize(15);
         } else {
             turn = 1;
             playerTurn.setText(player1.getText() + "'s turn");
+            player2.setTextSize(15);
+            player1.setTextSize(30);
         }
         game.setCurrentPlayer(turn);
     }
@@ -123,6 +128,7 @@ public class ResultActivity extends AppCompatActivity
         turn = 1;
         TextView p1 = (TextView) findViewById(R.id.p1);
         TextView p2 = (TextView) findViewById(R.id.p2);
+        ImageButton nextTurn = (ImageButton) findViewById(R.id.nextTurn);
         player1.setText(p1.getText());
         player2.setText(p2.getText());
         playerTurn.setText(player1.getText() + "'s turn");
@@ -134,11 +140,10 @@ public class ResultActivity extends AppCompatActivity
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String jsons = obj.toString();
-        Log.d("Nicklas",jsons);
-        PreferencesManager.getInstance().setValue(PreferencesManager.PLAYERS, jsons);
+        PreferencesManager.getInstance().setValue(PreferencesManager.PLAYERS, obj.toString());
         playerNamesView.setVisibility(View.INVISIBLE);
         resultView.setVisibility(View.VISIBLE);
+        nextTurn.setVisibility(View.VISIBLE);
     }
 
     private void setupNavigation() {
